@@ -1,0 +1,20 @@
+{
+  "name": "ra-test",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^4.1.1",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-scripts": "1.1.4"
+  },
+  "scripts": {
+    "start-js": "react-scripts start",
+    "build-js": "react-scripts build",
+    "test-js": "react-scripts test --env=jsdom",
+    "eject-js": "react-scripts eject"
+  },
+  "devDependencies": {
+    "popper.js": "^1.14.3"
+  }
+}
