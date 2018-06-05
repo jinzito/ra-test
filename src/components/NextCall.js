@@ -4,8 +4,8 @@ class NextCall extends Component {
     render() {
         return (
             <div className="jumbotron mx-4 my-4">
-                <h1 class="display-5">Next Call</h1>
-                <p class="lead">
+                <h1 className="display-5">Next Call</h1>
+                <p className="lead">
                     John Douson
                 </p>
                 <p>

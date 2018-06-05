@@ -1,7 +1,7 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import Pod from "./Pod";
 
-class TableList extends Component {
+class CallsList extends Component {
     render() {
         const thArray = ["Name", "Phone number", "Time"];
         const tdArray = [
@@ -24,14 +24,14 @@ class TableList extends Component {
                                aria-label="Input group example" aria-describedby="btnGroupAddon"/>
                     </div>
 
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-outline-secondary active">
+                    <div className="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label className="btn btn-outline-secondary active">
                             <input type="radio" name="options" id="option1"/>All
                         </label>
-                        <label class="btn btn-outline-secondary">
+                        <label className="btn btn-outline-secondary">
                             <input type="radio" name="options" id="option2"/> Next
                         </label>
-                        <label class="btn btn-outline-secondary">
+                        <label className="btn btn-outline-secondary">
                             <input type="radio" name="options" id="option2"/> Finished
                         </label>
                     </div>
@@ -39,17 +39,19 @@ class TableList extends Component {
 
                 <table className="table-sm table-hover table-striped w-100">
                     <thead>
-                    {thArray.map((prop, key) => {
-                        return (
-                            <th className="c-pointer" key={key} scope="col" role="button">
-                                <p>{prop}
-                                    <i className="down mx-2 mt-1 float-right"></i>
-                                </p>
-                            </th>
-                        );
-                    })}
-                    <th/>
-                    <th/>
+                    <tr>
+                        {thArray.map((prop, key) => {
+                            return (
+                                <th className="c-pointer" key={key} scope="col" role="button">
+                                    <p>{prop}
+                                        <i className="down mx-2 mt-1 float-right"></i>
+                                    </p>
+                                </th>
+                            );
+                        })}
+                    </tr>
+                    {/*<th/>*/}
+                    {/*<th/>*/}
                     </thead>
                     <tbody className="table-striped">
                     {tdArray.map((prop, key) => {
@@ -62,7 +64,7 @@ class TableList extends Component {
                                     <input className="" type="checkbox" value="option1" disabled checked/>
                                 </td>
                                 <td>
-                                    <button type="button" class="close" aria-label="Close">
+                                    <button type="button" className="close" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </td>
@@ -76,4 +78,4 @@ class TableList extends Component {
     }
 }
 
-export default TableList;
+export default CallsList;

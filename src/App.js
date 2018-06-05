@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import AddCall from "./components/AddCall";
-import TableList from "./components/TableList";
+import CallsList from "./components/CallsList";
 import NextCall from "./components/NextCall";
 
 class App extends Component {
@@ -14,7 +14,7 @@ class App extends Component {
                 </div>
                 <div className="col-xs-6">
                     <AddCall/>
-                    <TableList/>
+                    <CallsList/>
                 </div>
             </div>
         )
