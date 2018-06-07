@@ -1,17 +1,22 @@
 import React, { Component } from "react";
 import Pod from "./Pod";
+import { connect } from "react-redux"
+import { deleteCallItem } from "../actions"
+import CallsListItem from "./CallsListItem";
 
 class CallsList extends Component {
+
+    constructor(props) {
+        super(props);
+        this.onDelete = this.onDelete.bind(this);
+    }
+
+    onDelete(event) {
+        console.log("onDelete");
+    }
+
     render() {
         const thArray = ["Name", "Phone number", "Time"];
-        const tdArray = [
-            ["Dakota Rice", "+23423436,738", "12:45"],
-            ["Minerva Hooper", "+342323,789", "15:44"],
-            ["Sage Rodriguez", "+23423456,142", "16:00"],
-            ["Philip Chaney", "+342338,735", "18:00"],
-            ["Doris Greene", "+23423463,542", "22:20"],
-            ["Mason Porter", "+34242378,615", "20:50"]
-        ];
 
         return (
             <Pod>
@@ -50,25 +55,11 @@ class CallsList extends Component {
                             );
                         })}
                     </tr>
-                    {/*<th/>*/}
-                    {/*<th/>*/}
                     </thead>
                     <tbody className="table-striped">
-                    {tdArray.map((prop, key) => {
+                    {this.props.callItems.map((prop, key) => {
                         return (
-                            <tr key={key}>
-                                {prop.map((prop, key) => {
-                                    return <td key={key}>{prop}</td>;
-                                })}
-                                <td>
-                                    <input className="" type="checkbox" value="option1" disabled checked/>
-                                </td>
-                                <td>
-                                    <button type="button" className="close" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </td>
-                            </tr>
+                            <CallsListItem onDelete={this.onDelete} key={key} callItemVO={prop}/>
                         );
                     })}
                     </tbody>
@@ -78,4 +69,31 @@ class CallsList extends Component {
     }
 }
 
-export default CallsList;
+const getVisibleItems = (callItems, filter) => {
+    return callItems;
+    /*
+    switch (filter) {
+        case VisibilityFilters.SHOW_ALL:
+            return todos
+        case VisibilityFilters.SHOW_COMPLETED:
+            return todos.filter(t => t.completed)
+        case VisibilityFilters.SHOW_ACTIVE:
+            return todos.filter(t => !t.completed)
+        default:
+            throw new Error('Unknown filter: ' + filter)
+    }
+    */
+}
+
+const mapStateToProps = state => ({
+    callItems: getVisibleItems(state.callItems, state.visibilityFilter)
+})
+
+const mapDispatchToProps = dispatch => ({
+    deleteCallItem: id => dispatch(deleteCallItem(id))
+})
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(CallsList)
