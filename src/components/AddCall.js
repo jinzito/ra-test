@@ -41,7 +41,7 @@ class AddCall extends Component {
         date.setHours(rawHours > 0 ? rawHours : 0);
         const rawMinutes = time.length > 0 ? parseInt(time[1], 10) : 0;
         date.setMinutes(rawMinutes > 0 &&  rawMinutes < 60 ? rawMinutes : 0);
-        this.props.addCallItem({name: state.callName, phone: state.callNumber, time: date});
+        this.props.addCallItem({name: state.callName, phone: state.callNumber, time: date.toString()});
         this.setState({callName: "", callNumber: "", callTime: ""});
     }
 

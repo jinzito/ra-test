@@ -1,10 +1,10 @@
-import { combineReducers } from 'redux'
-import callItems from './callItems'
-import visibilityFilter from './visibilityFilter'
+import { combineReducers } from "redux"
+import callItems from "./callItems"
+import callItemsFilter from "./callItemsFilter"
 
 const raTestReducers = combineReducers({
     callItems,
-    visibilityFilter
+    callItemsFilter
 });
 
 export default raTestReducers

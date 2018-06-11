@@ -3,21 +3,19 @@ import { ADD_CALL_ITEM, DELETE_CALL_ITEM } from "../actions";
 const callItems = (state = [], action) => {
     switch (action.type) {
         case ADD_CALL_ITEM:
+            const maxIndex = state.length > 0 ? state.map(i => i.id).sort().pop() : 0;
             return [
                 ...state,
                 {
-                    id: action.id,
+                    id: maxIndex + 1,
                     ...action.callItem
                 }
             ]
         case DELETE_CALL_ITEM:
-            return state.map(item =>
-                (item.id === action.id)
-                    ? {...item, completed: !item.completed}
-                    : item
-            )
+            const idToDelete = action.id;
+            return state.filter(i => i.id !== idToDelete);
         default:
-            return state
+            return state;
     }
 }
 

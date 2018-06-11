@@ -3,7 +3,7 @@ import MaskedInput from "react-text-mask";
 
 const PhoneInput = (props) => {
 
-    const digit = /\w/;
+    const digit = /\d|\s/;
     const digitAndOnePlus = /\+|\d/;
     const digitBracketsDashSpace = /\(|\)|-|\d|\s/;
     const mask = [digitAndOnePlus, digit, ...new Array(15).fill(digitBracketsDashSpace)];
