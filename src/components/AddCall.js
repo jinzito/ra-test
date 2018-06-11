@@ -40,8 +40,8 @@ class AddCall extends Component {
         const rawHours = parseInt(time[0], 10);
         date.setHours(rawHours > 0 ? rawHours : 0);
         const rawMinutes = time.length > 0 ? parseInt(time[1], 10) : 0;
-        date.setMinutes(rawMinutes > 0 &&  rawMinutes < 60 ? rawMinutes : 0);
-        this.props.addCallItem({name: state.callName, phone: state.callNumber, time: date.toString()});
+        date.setMinutes(rawMinutes > 0 && rawMinutes < 60 ? rawMinutes : 0);
+        this.props.addCallItem({name: state.callName, phone: formatPhone(state.callNumber), time: date.toString()});
         this.setState({callName: "", callNumber: "", callTime: ""});
     }
 
@@ -70,7 +70,7 @@ class AddCall extends Component {
                             />
                         </div>
                         <div className="form-group col-md-4">
-                            <MaskedInput 
+                            <MaskedInput
                                 name="callTime"
                                 className="form-control"
                                 placeholder="Enter time"
@@ -89,6 +89,8 @@ class AddCall extends Component {
         )
     }
 }
+
+const formatPhone = (number) => number.charAt(0) === "+" ? "00" + number.slice(1) : number;
 
 const mapStateToProps = state => {
     return {

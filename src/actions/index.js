@@ -23,6 +23,10 @@ export const VisibilityFilters = {
 };
 
 export const SET_SORT_FILTER = "SET_SORT_FILTER";
+export const setSortFilter = sortType => ({
+    type: SET_SORT_FILTER,
+    sortType
+});
 export const SortFilter = {
     CALL_NAME: "CALL_NAME",
     CALL_NUMBER: "CALL_NUMBER",

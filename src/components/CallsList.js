@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import Pod from "./Pod";
 import { connect } from "react-redux"
-import { deleteCallItem, setVisibilityFilter, VisibilityFilters } from "../actions"
+import { deleteCallItem, setSortFilter, setVisibilityFilter, SortFilter, VisibilityFilters } from "../actions"
 import CallsListItem from "./CallsListItem";
 import CallsFilter from "./CallsFilter";
+import CallsListHeader from "./CallsListHeader";
 
 class CallsList extends Component {
 
@@ -11,6 +12,7 @@ class CallsList extends Component {
         super(props);
         this.onDelete = this.onDelete.bind(this);
         this.onChangeFilter = this.onChangeFilter.bind(this);
+        this.onChangeSorting = this.onChangeSorting.bind(this);
     }
 
     onDelete(idToDelete) {
@@ -21,8 +23,11 @@ class CallsList extends Component {
         this.props.setVisibilityFilter(filter);
     }
 
+    onChangeSorting(sortField) {
+        this.props.setSortFilter(sortField);
+    }
+
     render() {
-        const thArray = ["Name", "Phone number", "Time"];
 
         return (
             <Pod>
@@ -32,19 +37,12 @@ class CallsList extends Component {
                 </div>
 
                 <table className="table-sm table-hover table-striped w-100">
-                    <thead>
-                    <tr>
-                        {thArray.map((prop, key) => {
-                            return (
-                                <th className="c-pointer" key={key} scope="col" role="button">
-                                    <p>{prop}
-                                        <i className="down mx-2 mt-1 float-right"></i>
-                                    </p>
-                                </th>
-                            );
-                        })}
-                    </tr>
-                    </thead>
+
+                    <CallsListHeader
+                        onChangeSort={this.onChangeSorting}
+                        currentSort={this.props.callItemsFilter.sort}
+                        sortDescending={this.props.callItemsFilter.descending}/>
+
                     <tbody className="table-striped">
                     {this.props.callItems.map((prop, key) => {
                         return (
@@ -72,14 +70,35 @@ const getVisibleItems = (callItems, filter) => {
     }
 }
 
+const getSortedItems = (callItems, sorting) => {
+    const sortField = sorting.sort;
+    const sortAccordingDescending = (a, b) => {
+        return sorting.descending ? a > b : a < b;
+    }
+    const sortFunction = (a, b) => {
+        switch (sortField) {
+            case SortFilter.CALL_NAME:
+                return sortAccordingDescending(a.name, b.name);
+            case SortFilter.CALL_TIME:
+                return sortAccordingDescending(new Date(a.time), new Date(b.time));
+            case SortFilter.CALL_NUMBER:
+                return sortAccordingDescending(a.phone, b.phone);
+            default:
+                throw new Error("Unexpected sort field");
+        }
+    };
+    return callItems.sort(sortFunction);
+};
+
 const mapStateToProps = state => ({
-    callItems: getVisibleItems(state.callItems, state.callItemsFilter.filter),
+    callItems: getSortedItems(getVisibleItems(state.callItems, state.callItemsFilter.filter), state.callItemsFilter),
     callItemsFilter: state.callItemsFilter
 });
 
 const mapDispatchToProps = dispatch => ({
     deleteCallItem: id => dispatch(deleteCallItem(id)),
-    setVisibilityFilter: filter => dispatch(setVisibilityFilter(filter))
+    setVisibilityFilter: filter => dispatch(setVisibilityFilter(filter)),
+    setSortFilter: sortField => dispatch(setSortFilter(sortField))
 });
 
 export default connect(

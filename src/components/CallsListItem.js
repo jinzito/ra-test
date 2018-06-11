@@ -1,5 +1,7 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
+import { getFormattedTime } from "./../utils";
+
 
 const CallsListItem = ({onDelete, item}) => {
     const time = new Date(item.time);
@@ -10,7 +12,7 @@ const CallsListItem = ({onDelete, item}) => {
             <tr key={item.id}>
                 <td>{item.name}</td>
                 <td>{item.phone}</td>
-                <td>{time.getHours() + ":" + time.getMinutes()}</td>
+                <td>{getFormattedTime(time)}</td>
                 <td>
                     <input className="" type="checkbox" value="option1" disabled checked={isCompleted}/>
                 </td>
@@ -22,7 +24,7 @@ const CallsListItem = ({onDelete, item}) => {
             </tr>
         </Fragment>
     );
-}
+};
 
 CallsListItem.propTypes = {
     onDelete: PropTypes.func.isRequired,
